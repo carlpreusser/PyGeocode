@@ -1,5 +1,5 @@
 #################################################################################################################
-##  CCBH Geocoding Service can be used to geocode any dbf file with address, city, state, and zip field.       ##
+##   Geocoding Service can be used to geocode any dbf file with address, city, state, and zip field.       ##
 ##    It requires a computer with an ArcGIS software license available for use.  The first geocode attempt     ##
 ##    is made with the ArcGIS software which requires an "Address Locator" file as input.  The Address locator ##
 ##    file is made within the ArcGIS software. 
@@ -19,7 +19,8 @@ from geopy import geocoders
 #Set arcpy to Overwrite any existing data...if this is set to False the program would require unique names...maybe set with a datetime timestamp
 arcpy.env.overwriteOutput = True
  
-layerString = "T:\\transfer\\GIS DATA\\Preusser\\Cuyahoga\\Septic_Storm_Project\\service_areas.shp"  #arcpy.GetParameterAsText(0)
+ #going to need to add your file name here, else if running as a script tool uncomment the getparameter
+layerString = "filenamehere"  #arcpy.GetParameterAsText(0)
 desc = arcpy.Describe(layerString)
 shapefieldname = desc.ShapeFieldName
 
@@ -34,16 +35,16 @@ for row in cursor:
             print point.X, point.Y
 
 # CHANGE LOCATION A .......................................................................................................
-Local address file we are looking to geocode...
-incidents = "C:\\Program Files\\ArcGIS\\Python\\Euclid_SRTS.csv"
+#Local address file we are looking to geocode...
+incidents = "filename"
  
 # CHANGE LOCATION B .......................................................................................................
 # ArcGIS created address locator.  
-addressLocator = "C:\\Program Files\\ArcGIS\\Cuyahoga\\Address Locators\\AddressLocator"
+addressLocator = "filename"
 
 # CHANGE LOCATION C.......................................................................................................
 # Output file...1st attempt to match all addresses.
-incidentGeocodeOutput = "C:\\Program Files\\ArcGIS\\Python\\SRTS_GeocodeOutput.shp"
+incidentGeocodeOutput = "outputfilename"
 
 # CHANGE LOCATION D .......................................................................................................
 # Run ArcGIS Geocode tool: Geocode Addresses...
@@ -152,6 +153,8 @@ arcpy.CopyRows_management(inTable, outTable)
 #Set the local variables
 x_coords = "GeoLat"
 y_coords = "GeoLon"
+
+#may need to alter this if your install path is different
 out_Layer = "C:\\Program Files\\ArcGIS\\Python\\incidents_layer"
 saved_Layer = "C:\\Program Files\\ArcGIS\\Python\\GeocodedIncidents.lyr"
  
